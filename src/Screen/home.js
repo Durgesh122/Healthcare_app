@@ -1,16 +1,30 @@
-import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
-import {
-  responsiveFontSize,
-  responsiveHeight,
-  responsiveWidth,
-} from 'react-native-responsive-dimensions';
+import {Image, Modal, ScrollView, StyleSheet, Text, TouchableNativeFeedback, TouchableOpacity, View} from 'react-native';
+import React, { useState } from 'react';
+import { responsiveFontSize,responsiveHeight,responsiveWidth} from 'react-native-responsive-dimensions';
 
-export default function Home() {
+export default function Home({navigation}) {
+
+  const [modalvisible,setModaleVisibal]=useState(false)
+  const handlemessage=()=>{
+
+    navigation.navigate("Message")
+  }
+  const handleClaneder=()=>{
+
+    navigation.navigate("Calender")
+  }
+
+  const handlepage=()=>{
+
+    navigation.navigate("Papper")
+  }
+
+
+  
   return (
     <View style={styles.Contnaire}>
       <View style={styles.Contnaire2}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>setModaleVisibal(true)}>
           <Image
             source={require('../Assets/Image/Linetabmodal.png')}
             style={styles.linestyle}
@@ -151,31 +165,47 @@ export default function Home() {
         <TouchableOpacity>
           <Image
             style={styles.icon}
-            source={require('../Assets/Image/Home.png')}
+            source={require('../Assets/Image/homeicone2.png')}
           />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleClaneder}>
           <Image
             style={styles.icon2}
             source={require('../Assets/Image/darkcalender.png')}
           />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handlepage}>
           <Image
             style={styles.icon3}
             source={require('../Assets/Image/page2.png')}
           />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>handlemessage()}>
           <Image
             style={styles.icon4}
             source={require('../Assets/Image/message.png')}
           />
         </TouchableOpacity>
       </View>
+      <Modal 
+      animationType="fade"
+      visible={modalvisible}
+      onRequestClose={()=>setModaleVisibal(false)}
+      transparent={true}>
+        <TouchableNativeFeedback onPress={()=>setModaleVisibal(false)}>
+        <View style={styles.modlecontnair}>
+          <View style={styles.modlecontnair2}>
+
+          </View>
+
+
+        </View>
+        </TouchableNativeFeedback>
+        
+      </Modal>
     </View>
   );
 }
@@ -184,6 +214,20 @@ const styles = StyleSheet.create({
   Contnaire: {
     flex: 1,
     backgroundColor: 'white',
+  },
+  modlecontnair:{
+    flex:1,
+    
+  },
+  modlecontnair2:{
+    backgroundColor:'rgba(255, 255, 255, 0.8)',
+    height:responsiveHeight(80),
+    width:responsiveWidth(60),
+    marginTop:responsiveHeight(10),
+    borderTopRightRadius:responsiveWidth(5),
+    borderBottomRightRadius:responsiveWidth(5),
+    borderWidth:2,
+    borderColor:"rgba(217, 217, 217, 1)"
   },
   scrollContent: {
     paddingBottom: responsiveHeight(10), 
